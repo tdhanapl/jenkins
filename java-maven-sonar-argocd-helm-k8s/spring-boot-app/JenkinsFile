@@ -22,7 +22,7 @@ pipeline {
                 git config user.email "dhana@gmail.com"
                 git config user.name "dhana"
                 BUILD_NUMBER=${BUILD_NUMBER}
-                previous_build_version=$(cat deployment.yml |grep -i image: |awk -F : '{print $3}')
+                previous_build_version=$(cat java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml |grep -i image: |awk -F : '{print $3}')
                 git pull
                 sed -i "s/:${previous_build_version}/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                 git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
