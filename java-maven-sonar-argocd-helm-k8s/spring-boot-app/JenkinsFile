@@ -3,13 +3,18 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/tdhanapl/jenkins.git'
+                git branch: 'main', url: 'https://github.com/tdhanapl/jenkins.git'
+            }
+        }
+        stage('bulid') {
+            steps {
+                sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn  package'
             }
         }
         stage('Update Deployment File') {
             environment {
                 GIT_REPO_NAME = "jenkins"
-                GIT_USER_NAME = "tdhanpal"
+                GIT_USER_NAME = "tdhanapl"
             }
             steps {
                 withCredentials([gitUsernamePassword(credentialsId: 'github_token', gitToolName: 'Default')]) {
